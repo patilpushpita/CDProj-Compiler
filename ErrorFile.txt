@@ -1,0 +1,29 @@
+//Error file
+
+#inlcude <stdio.h>
+
+void main()
+{
+	int a;
+	char a.1
+	flot b=12.2;
+
+	if(a=1)
+	{
+		b=13.3;
+	}
+	else
+		c=12
+
+	for(a=1;a<2;a++)
+	{
+		b=b/2;
+	}
+
+	switch ( b )
+	{
+		case 1: a = 1 ; 
+		case 2: continue ; 
+		default: break;
+	}
+}
