@@ -1,6 +1,7 @@
 %{
 #include "helper.h"
-
+int cnto = 0;
+int cntc = 0;
 %}
 datatype ("int"|"float"|"char"|"struct"|"enum")
 intconst [0-9]+
@@ -23,9 +24,15 @@ cPara \)
 funccall [_a-zA-Z][_a-zA-Z0-9]{0,30}\(\)
 funcprot ("void"|"int"|"float"|"char")(" "){identifier}\(.*\)("\;")
 funcheader ("void"|"int"|"float"|"char")(" "){identifier}\(.*\)
+multicomment "/*".+"*/"
 Delimiter "\;"
+String ("\"").+("\"")
+printf ("printf\("){String}("\)");
 %%
 {Comment} { insert("//", "comment"); }
+{multicomment} {insert("/*", "multilinecomment");}
+{printf} {insert(yytext , "print statement");}
+{String} { insert(yytext, " String");}
 {file} { insert("#", "file"); }
 {funcprot} {insert(yytext, "function prototype");}
 {funcheader} {insert(yytext, "function header");}
@@ -40,10 +47,10 @@ Delimiter "\;"
 {intconst} { insertC(yytext,"integerconst"); }
 {fpconst} { insertC(yytext, "floatingpconst"); }
 {identifier} { insert(yytext, "identifier"); }
-{a_operators} { insert(yytext, "arithmatic"); }
+{a_operators} { insert(yytext, "arithmetic"); }
 {r_operators} { insert(yytext, "relational"); }
-{oBracket} { insert(yytext, "openBracket"); }
-{cBracket} { insert(yytext, "closeBracket"); }
+{oBracket} { insert(yytext, "openBracket"); ++cnto; }
+{cBracket} { insert(yytext, "closeBracket"); ++cntc; }
 {oPara} { insert(yytext, "openaPara"); }
 {cPara} { insert(yytext, "closePara"); }
 {assignment_op} { insert(yytext, "assignment_op"); }
@@ -57,8 +64,12 @@ Delimiter "\;"
 %%
 void main()
 {
-    yyin=fopen("ErrorFile.txt","r");
+    yyin=fopen("ErrorFile2.txt","r");
     yylex();
+    if(cnto!=cntc)
+    {
+	printf("\nParenthesis error!");
+    }
     Display();
     printf("\n\n");
     DisplayC();
