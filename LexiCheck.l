@@ -64,7 +64,7 @@ printf ("printf\("){String}("\)");
 %%
 void main()
 {
-    yyin=fopen("ErrorFile2.txt","r");
+    yyin=fopen("NoErrorFile.txt","r");
     yylex();
     if(cnto!=cntc)
     {
