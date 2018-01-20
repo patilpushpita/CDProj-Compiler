@@ -1,45 +1,70 @@
 %{
+#include "helper.h"
 
 %}
-datatype ("int"|"float"|"char")
+datatype ("int"|"float"|"char"|"struct"|"enum")
 intconst [0-9]+
 fpconst [+-]?([0-9]*[.])?[0-9]+
-operators("/"|"*"|"-"|"="|"+")
+a_operators [/*+%]
+r_operators  (">"|"<"|">="|"<="|"==")
+assignment_op [=]
 identifier [_a-zA-Z][_a-zA-Z0-9]{0,30}
-
 ConditionIf ("if")
 Conditionelse ("else")
 ConditionSwitch("switch"|"case"|"default") 
-Control ("Continue"|"Break")
-
+Control ("continue"|"break")
 Loop ("for"|"while")
-
-Comment "//".+
-
-Delimiter ;
-
-
+file ^"#include".+$
+Comment "//".+$
+oBracket \{
+oPara \(
+cBracket \}
+cPara \)
+funccall [_a-zA-Z][_a-zA-Z0-9]{0,30}\(\)
+funcprot ("void"|"int"|"float"|"char")(" "){identifier}\(.*\)("\;")
+funcheader ("void"|"int"|"float"|"char")(" "){identifier}\(.*\)
+Delimiter "\;"
 %%
-{datatype} printf("\ndatatype");
-{ConditionIf} printf("\nConditionIf");
-{Conditionelse} printf("\nConditionelse");
-{ConditionSwitch} printf("\nConditionSwitch");
-{Control} printf("\nControl");
-{Loop} printf("\nLoop");
-{Delimiter} printf("\nDelimiter");
-{intconst} printf("\nintconst");
-{fpconst} printf("\nfpconst");
-{identifier} printf("\nidentifier");
-{operators} printf("\noperator");
-
+{Comment} { insert("//", "comment"); }
+{file} { insert("#", "file"); }
+{funcprot} {insert(yytext, "function prototype");}
+{funcheader} {insert(yytext, "function header");}
+{funccall} {insert(yytext, "function call");}
+{datatype} { insert(yytext, "datatype"); }
+{ConditionIf} { insert(yytext, "ConditionIf"); }
+{Conditionelse} { insert(yytext, "Conditionelse"); }
+{ConditionSwitch} { insert(yytext, "ConditionSwitch"); }
+{Control} { insert(yytext, "Control"); }
+{Loop} { insert(yytext, "Loop"); }
+{Delimiter} { insert(yytext, "Delimiter"); }
+{intconst} { insertC(yytext,"integerconst"); }
+{fpconst} { insertC(yytext, "floatingpconst"); }
+{identifier} { insert(yytext, "identifier"); }
+{a_operators} { insert(yytext, "arithmatic"); }
+{r_operators} { insert(yytext, "relational"); }
+{oBracket} { insert(yytext, "openBracket"); }
+{cBracket} { insert(yytext, "closeBracket"); }
+{oPara} { insert(yytext, "openaPara"); }
+{cPara} { insert(yytext, "closePara"); }
+{assignment_op} { insert(yytext, "assignment_op"); }
+[\r] ;
+[\n] ;
+[\t] ;
+: ;
+, ;
+[ ] ;
+. { printf("%s error\n", yytext);}
 %%
-int main()
+void main()
 {
-	yyin=fopen("NoErrorFile.txt","r");
-
-	yylex();
+    yyin=fopen("ErrorFile.txt","r");
+    yylex();
+    Display();
+    printf("\n\n");
+    DisplayC();
 }
+
 int yywrap()
 {
-	return(1);
+    return(1);
 }
