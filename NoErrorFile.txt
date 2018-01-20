@@ -1,4 +1,5 @@
 //No error file
+/* The code includes every acceptable case*/
 
 #include <stdio.h>
 void example1();
