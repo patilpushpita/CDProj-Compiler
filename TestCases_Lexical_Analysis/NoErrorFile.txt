@@ -1,0 +1,51 @@
+//No error file
+/* The code includes every acceptable case*/
+
+#include <stdio.h>
+void example1();
+void example2()
+{
+	int a;
+	a = 3;
+}
+void example1()
+{
+	printf("Example1");
+	example2();
+}
+/*multiline comment
+nihala
+pushpita*/
+
+void main()
+{
+	int a , b ;
+	float c ;
+	char d ;
+	a = 10 ;
+	c = 10.12 ; //comment1
+	if ( a = 10 )
+	{
+		b = 1 ;
+	}
+	else
+	{
+		c = 11.12 ;
+	}	
+
+	//comment2
+
+	while ( b > 0 )
+	{
+		b = b - 1 ;
+	}
+
+	switch ( b )
+	{
+		case 1: a = 1 ; continue;
+		case 2: b = b * 2 ; 
+		default: break;
+	}
+
+	
+}

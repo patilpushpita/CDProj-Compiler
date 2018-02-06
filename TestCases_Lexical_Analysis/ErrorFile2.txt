@@ -1,0 +1,13 @@
+//Invalid function header error
+ #include <stdio.h>
+voiddd testcase()
+{
+	int x;
+}
+void main()
+{
+	int a = 5;
+	int b=10;
+	int c = a+b;
+}
+

@@ -1,0 +1,20 @@
+/*NoError File*/
+#include<stdio.h>
+void main()
+{
+int a,b,i;
+i = 0;
+float f;
+a = 0
+b = 2;
+int c = a+b;
+switch(f)
+{
+	case 1: ++a;
+		break;
+}
+for(;i<8;++i)
+{
+printf("*");
+}
+}

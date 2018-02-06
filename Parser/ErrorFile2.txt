@@ -1,0 +1,11 @@
+/* Error File 1 : Undeclared variable*/
+#include<stdio.h>
+void main()
+{
+int a,b;
+a = 0
+b = 2;
+int c = a+b;
+d = c - 5 ;
+printf("%d",d);
+}

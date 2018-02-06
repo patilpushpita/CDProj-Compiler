@@ -1,0 +1,17 @@
+/* Error File 1 : Invalid switch entry */
+#include<stdio.h>
+void main()
+{
+int a,b;
+float f;
+a = 0
+b = 2;
+int c = a+b;
+switch(f)
+{
+	case 1: ++a;
+		break;
+}
+case 2: printf("Error");
+
+}
