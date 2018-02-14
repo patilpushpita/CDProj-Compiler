@@ -3,6 +3,6 @@ int main () {
 	while ( 1 ) {
 	
 	int d;
-	int r
+	int r;
 }
 }

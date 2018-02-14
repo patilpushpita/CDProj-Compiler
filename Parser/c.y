@@ -11,7 +11,7 @@ extern FILE *fp;
 %token IF ELSE SWITCH CASE DEFAULT
 %token CONTINUE BREAK 
 %token STRUCT 
-%token NUM ID INT_CONST FP_CONST
+%token NUM ID FNUM
 %token INCLUDE FILE1
 %token DOT
 
@@ -94,6 +94,8 @@ Stmt:	WhileStmt
 Type:	INT 
 	| FLOAT
 	| CHAR
+	| STRING
+	| ENUM
 	| VOID 
 	;
 
@@ -105,15 +107,20 @@ WhileStmt: WHILE '(' Expr ')' Stmt
 /* For Block */
 ForStmt: FOR '(' Expr ';' Expr ';' Expr ')' Stmt 
        | FOR '(' Expr ';' Expr ';' Expr ')' CompoundStmt 
-       | FOR '(' Expr ')' Stmt 
-       | FOR '(' Expr ')' CompoundStmt 
-	;
+       | FOR '(' Expr ';' ';'')' Stmt
+       | FOR '(' ';' Expr ';'')' Stmt
+       | FOR '(' ';'';'Expr')' Stmt
+       | FOR '(' Expr ';' ';'')' CompoundStmt
+       | FOR '(' ';' Expr ';'')' CompoundStmt
+       | FOR '(' ';'';'Expr')' CompoundStmt
+       | FOR '('';' ';'')' CompoundStmt
+       | FOR '('';' ';'')' Stmt
+       ;
 
 /* IfStmt Block */
-IfStmt : IF '(' Expr ')' 
-	 	Stmt 
-	;
-
+IfStmt : IF '(' Expr ')' Stmt ELSE Stmt
+        | IF '(' Expr ')' Stmt
+        ;
 /* Struct Statement */
 StructStmt : STRUCT ID '{' Type Assignment '}'  
 	;
@@ -132,6 +139,7 @@ Expr:
 	;
 %%
 #include"lex.yy.c"
+
 #include<ctype.h>
 int count=0;
 
