@@ -8,11 +8,11 @@ extern FILE *fp;
 
 %token INT FLOAT CHAR STRING ENUM VOID
 %token FOR WHILE 
-%token IF ELSE SWITCH 
+%token IF ELSE SWITCH CASE DEFAULT
 %token CONTINUE BREAK 
 %token STRUCT 
 %token NUM ID INT_CONST FP_CONST
-%token INCLUDE
+%token INCLUDE FILE1
 %token DOT
 
 %right '='
@@ -94,9 +94,7 @@ Stmt:	WhileStmt
 Type:	INT 
 	| FLOAT
 	| CHAR
-	| STRING
-	|ENUM
-        | VOID 
+	| VOID 
 	;
 
 /* Loop Blocks */ 
@@ -107,17 +105,14 @@ WhileStmt: WHILE '(' Expr ')' Stmt
 /* For Block */
 ForStmt: FOR '(' Expr ';' Expr ';' Expr ')' Stmt 
        | FOR '(' Expr ';' Expr ';' Expr ')' CompoundStmt 
-       | FOR '(' Expr ';' ';'')' Stmt
-       | FOR '(' ';' Expr ';'')' Stmt
-       | FOR '(' ';'';'Expr')' Stmt
-       | FOR '(' Expr ';' ';'')' CompoundStmt
-       | FOR '(' ';' Expr ';'')' CompoundStmt
-       | FOR '(' ';'';'Expr')' CompoundStmt
-       ;
+       | FOR '(' Expr ')' Stmt 
+       | FOR '(' Expr ')' CompoundStmt 
+	;
 
 /* IfStmt Block */
-IfStmt : IF '(' Expr ')'  Stmt ;
-	 | IF '(' Expr ')' Stmt ELSE 
+IfStmt : IF '(' Expr ')' 
+	 	Stmt 
+	;
 
 /* Struct Statement */
 StructStmt : STRUCT ID '{' Type Assignment '}'  
@@ -137,7 +132,6 @@ Expr:
 	;
 %%
 #include"lex.yy.c"
-
 #include<ctype.h>
 int count=0;
 

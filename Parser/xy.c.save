@@ -1,9 +1,0 @@
-#include<iostream>
-void main()
-{
-int x = 10;
-for( x)
-{
-;
-}
-
