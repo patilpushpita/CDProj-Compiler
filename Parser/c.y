@@ -12,7 +12,7 @@ extern FILE *fp;
 %token CONTINUE BREAK 
 %token STRUCT 
 %token NUM ID FNUM
-%token INCLUDE FILE1
+%token INCLUDE 
 %token DOT
 
 %right '='
@@ -153,6 +153,9 @@ int main(int argc, char *argv[])
 		printf("\nParsing failed\n");
 	
 	fclose(yyin);
+	Display();
+	printf("\n\n");
+	DisplayC();
     return 0;
 }
          

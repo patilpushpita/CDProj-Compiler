@@ -1,5 +1,5 @@
 /* Error File 1 : Missing semicolon*/
-#include<stdio.h>
+
 void main()
 {
 int a,b;
