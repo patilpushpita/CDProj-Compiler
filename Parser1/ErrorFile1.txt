@@ -1,0 +1,11 @@
+/* Error File 1 : Missing semicolon*/
+
+void main()
+{
+int a,b;
+a = 0
+b = 2;
+int c = a+b;
+
+}
+

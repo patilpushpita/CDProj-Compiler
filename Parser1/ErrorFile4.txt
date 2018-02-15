@@ -1,0 +1,17 @@
+/* Error File 1 : Invalid for loop and missing closing paranthesis */
+#include<stdio.h>
+void main()
+{
+int a,b,i;
+i = 0;
+float f;
+a = 0
+b = 2;
+int c = a+b;
+for(i<8;++i)
+{
+printf("*");
+}
+
+
+
