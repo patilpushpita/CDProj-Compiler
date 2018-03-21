@@ -11,3 +11,4 @@ ARRAY			a			int		local1		1
 IDENTIFIER		test			int		local1		0
 IDENTIFIER		b			float		local1		0
 IDENTIFIER		c			int		local1		0
+IDENTIFIER		temp			int		local2		0

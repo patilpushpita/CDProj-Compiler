@@ -1,4 +1,4 @@
-//Error file
+//Error file out of scope variable
 
 #include<stdio.h>
 int f1()
@@ -14,7 +14,8 @@ void main()
 	float b=12.2;
 	int c;
 
-	if(c=11)
+    new = new +1;
+	if(c)
 	{
 		int temp = 5;
 		b=13.3;
@@ -22,11 +23,12 @@ void main()
 	else
 		c=12;
 
-	for(c=1;c<2;)
+	for(c=1;c<2;c = c+1)
 	{
 		b=b/2;
 	}
 	a=f1(8);
+}
 }
 
 
