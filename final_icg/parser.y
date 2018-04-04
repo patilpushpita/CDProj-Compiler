@@ -71,8 +71,8 @@ external_declaration
 	;
 
 function_definition
-	: type_specifier declarator '{' statementlist RETURN {check_func_type();} arg_expression {isReturnType();} ';' '}' {set_valid();}
-	| type_specifier declarator '{' statementlist  {check_func_type_void();} '}' {set_valid();}
+	: type_specifier declarator '{' statementlist RETURN {check_func_type();} arg_expression {isReturnType();} ';' {endfunc();} '}' {set_valid();}
+	| type_specifier declarator '{' statementlist  {check_func_type_void();} {endfunc();} '}' {set_valid();}
 	| declarator '{' statementlist '}' {set_valid();}
 	;
 
@@ -543,6 +543,11 @@ void set_data_type()
     }
 }
 
+void endfunc()
+{
+    fprintf(f1,"EndFunc :\n");
+}
+
 void set_func_label()
 {
     fprintf(f1,"$L%s :\n",text);
@@ -550,7 +555,7 @@ void set_func_label()
 
 void goto_func_label()
 {
-    fprintf(f1,"\tgoto $L%s \n",text);
+    fprintf(f1,"\tFCall $L%s \n",text);
     fprintf(f1,"$Lcontinue :\n");
 }
 

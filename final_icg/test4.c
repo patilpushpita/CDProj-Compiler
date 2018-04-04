@@ -9,12 +9,7 @@ int f1()
 	
 	return x;
 }
-int f3()
-{
-	int a;
-	f1();
-	return a;
-}
+
 int f2()
 {
 	int y;

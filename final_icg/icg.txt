@@ -1,5 +1,14 @@
 $Lf1 :
 	x	=	10
-$Lmain :
-	goto $Lf1 
+EndFunc :
+$Lf2 :
+	y	=	12
+	FCall $Lf1 
 $Lcontinue :
+EndFunc :
+$Lmain :
+	FCall $Lf1 
+$Lcontinue :
+	FCall $Lf2 
+$Lcontinue :
+EndFunc :
