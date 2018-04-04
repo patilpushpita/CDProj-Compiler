@@ -1,9 +1,5 @@
 $Lf1 :
 	x	=	10
-$Lf2 :
-	y	=	12
 $Lmain :
 	goto $Lf1 
-$Lcontinue :
-	goto $Lf2 
 $Lcontinue :
