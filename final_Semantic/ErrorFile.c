@@ -14,7 +14,6 @@ void main()
 	float b=12.2;
 	int c;
 
-    new = new +1;
 	if(c)
 	{
 		int temp = 5;
@@ -23,12 +22,9 @@ void main()
 	else
 		c=12;
 
-	for(c=1;c<2;c = c+1)
+	for(;c<2;)
 	{
 		b=b/2;
 	}
-	a=f1(8);
+	a=f1();
 }
-}
-
-

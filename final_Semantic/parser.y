@@ -87,21 +87,21 @@ statement
 	;
 
 assignmentstatement
-    : IDENTIFIER {check();} ASSIGN_OP float_expression {cg_assign();}
-    | arrayindex ASSIGN_OP float_expression {cg_assign1();}  
+    : IDENTIFIER {check();} ASSIGN_OP float_expression 
+    | arrayindex ASSIGN_OP float_expression 
     ;
 
 declerationstub
 	: IDENTIFIER {STMT_DECLARE_ID();set_data_type();}
 	| IDENTIFIER {dim_arr=1; set_arr(); STMT_DECLARE_ID();set_data_type(); dim_arr=0;} '[' arg_expression ']' //create another func
-	| IDENTIFIER {STMT_DECLARE_ID();set_data_type();} ASSIGN_OP float_expression {cg_assign();} 
+	| IDENTIFIER {STMT_DECLARE_ID();set_data_type();} ASSIGN_OP float_expression 
 	;
         
 c_declerationstub
 	: IDENTIFIER {STMT_DECLARE_ID();set_data_type();}
 	| IDENTIFIER {dim_arr=1; set_arr(); STMT_DECLARE_ID();set_data_type(); dim_arr=0;} '[' arg_expression ']' //create another func
-	| IDENTIFIER {STMT_DECLARE_ID();set_data_type();} ASSIGN_OP CHARACTER {cg_assign();}
-	| IDENTIFIER {dim_arr=1; set_arr(); STMT_DECLARE_ID();set_data_type(); dim_arr=0;} '[' arg_expression ']' ASSIGN_OP STRINGLITERAL {cg_assign();}
+	| IDENTIFIER {STMT_DECLARE_ID();set_data_type();} ASSIGN_OP CHARACTER 
+	| IDENTIFIER {dim_arr=1; set_arr(); STMT_DECLARE_ID();set_data_type(); dim_arr=0;} '[' arg_expression ']' ASSIGN_OP STRINGLITERAL 
 	;
 
 declerationstatement
@@ -126,12 +126,11 @@ compoundstatement
 	;
 
 conditionalstatement
-    : IF '(' float_expression ')'  {if_label1();} statement ELSESTMT 
+    : IF '(' float_expression ')' statement ELSESTMT 
 	;
 	
 ELSESTMT
-    : ELSE {if_label2();} statement {if_label3();}
-	| {if_label3();}
+    : ELSE statement 
 	;
 
 functioncallstatement
@@ -140,12 +139,12 @@ functioncallstatement
     ;
 
 jumpstatement
-    : BREAK ';' {stmt_break();} 
-    | CONTINUE ';' {stmt_continue();} 
+    : BREAK ';' 
+    | CONTINUE ';' 
     ;
 
 forstatement
-	: FOR '(' optionalassignstatement ';' {for_label1();} optionaltestexpressionstatement ';' optionalassignstatement ')' statement {for_label4();}
+	: FOR '(' optionalassignstatement ';' optionaltestexpressionstatement ';' optionalassignstatement ')' statement 
 	;
  
 optionaltestexpressionstatement
@@ -162,8 +161,8 @@ optionalassignstatement
     
 optional_assign_expression
     :
-    | IDENTIFIER {check(); } ASSIGN_OP float_expression {cg_assign();}        
-	| arrayindex ASSIGN_OP float_expression {cg_assign1();} 
+    | IDENTIFIER {check(); } ASSIGN_OP float_expression 
+	| arrayindex ASSIGN_OP float_expression 
 	;
 
 expressionstatement
@@ -182,10 +181,10 @@ arg_expr
     | INTEGER 
     | functioncallstatement                                  
     | '(' arg_expr ')'                               	
-	| arg_expr ADD_OP arg_expr {cg_algebric();}     
-	| arg_expr SUB_OP arg_expr {cg_algebric();}      
-	| arg_expr MUL_OP arg_expr {cg_algebric();}          
-	| arg_expr DIV_OP arg_expr {cg_algebric();}    
+	| arg_expr ADD_OP arg_expr 
+	| arg_expr SUB_OP arg_expr 
+	| arg_expr MUL_OP arg_expr 
+	| arg_expr DIV_OP arg_expr 
 	;
 
 float_expression
@@ -193,17 +192,17 @@ float_expression
     | expression  
     | functioncallstatement                                  
     | '(' float_expression ')'                                  	
-	| float_expression ADD_OP float_expression {cg_algebric();}     
-	| float_expression SUB_OP float_expression {cg_algebric();}      
-	| float_expression MUL_OP float_expression {cg_algebric();}          
-	| float_expression DIV_OP float_expression {cg_algebric();}      
-	| float_expression G_OP float_expression {cg_logical();}             
-	| float_expression L_OP float_expression {cg_logical();}
-	| float_expression GE_OP float_expression {cg_logical();}
-	| float_expression LE_OP float_expression {cg_logical();}
-	| float_expression EE_OP float_expression {cg_logical();}
-	| float_expression NE_OP float_expression {cg_logical();}
-	| NOT_OP float_expression {cg_logicalnot();}
+	| float_expression ADD_OP float_expression 
+	| float_expression SUB_OP float_expression 
+	| float_expression MUL_OP float_expression 
+	| float_expression DIV_OP float_expression 
+	| float_expression G_OP float_expression 
+	| float_expression L_OP float_expression 
+	| float_expression GE_OP float_expression 
+	| float_expression LE_OP float_expression 
+	| float_expression EE_OP float_expression 
+	| float_expression NE_OP float_expression 
+	| NOT_OP float_expression 
     ;
    
 expression
@@ -336,96 +335,6 @@ void check_f_arg(int arg) {
         exit(1);
     }
 }
-//icg from here
-
-void cg_logical()
-{
- 	sprintf(temp,"$t%d",i);
-  	top-=2;
- 	strcpy(st[top],temp);
- 	i++;
-}
-
-void cg_logicalnot()
-{
- 	sprintf(temp,"$t%d",i);
-  	top-=1;
- 	strcpy(st[top],temp);
- 	i++;
-}
-
-void cg_algebric()
-{
- 	sprintf(temp,"$t%d",i);
-  	top-=2;
- 	strcpy(st[top],temp);
- 	i++;
-}
-
-void cg_assign1()
-{
- 	top-=4;
-}
-
-void cg_assign()
-{
- 	top-=3;
-}
- 
-void if_label1()
-{
- 	ifnum++;
- 	iflabel[++iftop]=ifnum;
-}
-
-void if_label2()
-{
-	int x;
-	ifnum++;
-	x=iflabel[iftop--]; 
-	iflabel[++iftop]=ifnum;
-}
-
-void if_label3()
-{
-    printf("iftop = %d\n",iftop);
-	int y;
-	y=iflabel[iftop--];
-}
-
-void for_label1()
-{
-    lnum++;
- 	label[++ltop]=lnum; //test_expr
- 	label[++ltop]=++lnum; //update_expr
- 	label[++ltop]=++lnum; // start_of_for_body
- 	label[++ltop]=++lnum; //line_after_for
- 	
-}
-
-void for_label4()
-{
-   ltop-=4;
-}
-
-void stmt_break()
-{
-    int y;
-	y=label[ltop];
-}
-
-void stmt_continue()
-{ 
-    int y;
-	y=label[ltop-2];
-}
-
-void stmt_return(int args)
-{
-    if(args);
-            
-}
-//till here
 
 void set_data_type() 
 {

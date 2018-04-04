@@ -1,0 +1,14 @@
+
+SYMBOL TABLE:
+_______________________________________
+
+|TOKEN TYPE |TOKEN NAME |DATA TYPE |SCOPE|
+_______________________________________
+FUNCTION		f1		int		global
+IDENTIFIER		x			int		local1
+FUNCTION		f2		int		global
+IDENTIFIER		y			int		local1
+FUNCTION		main		int		global
+IDENTIFIER		i			int		local1
+IDENTIFIER		j			int		local1
+IDENTIFIER		k			int		local1
